@@ -1,0 +1,43 @@
+{% extends "client/layout_client.html" %}
+{% block body %}
+
+<div class="m-auto p-3 border col-lg-6">
+    <form action="{{ url_for('client_coordonnee.add_address') }}" method="post">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- CSRF Token -->
+        {{ form.csrf_token }}
+
+        <table class="table w-auto" >
+            <tr>
+                <td>Utilisateur connecté :</td>
+                <td class="text-success">nom : {{ utilisateur.nom }} , login : {{ utilisateur.login }}</td>
+            </tr>
+            <tr>
+                <td><label for="nom">Nom prénom :</label></td>
+                <td><input type="text" id="nom" name="nom" required maxlength="50" class="form-control"></td>
+            </tr>
+            <tr>
+                <td><label for="rue">Numéro de rue et nom :</label></td>
+                <td><input type="text" id="rue" name="rue" required class="form-control"></td>
+            </tr>
+            <tr>
+                <td><label for="code_postal">Code postal :</label></td>
+                <td><input type="text" id="code_postal" name="code_postal" required pattern="\d{5}" title="Cinq chiffres nécessaires." class="form-control"></td>
+            </tr>
+            <tr>
+                <td><label for="ville">Ville :</label></td>
+                <td><input type="text" id="ville" name="ville" required maxlength="50" class="form-control"></td>
+            </tr>
+        </table>
+        <button class="btn btn-primary" type="submit">Valider</button>
+    </form>
+</div>
+
+{% endblock %}
